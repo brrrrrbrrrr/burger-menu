@@ -25,37 +25,65 @@ nav {
 
 nav div img {
   width: 50px;
+  margin: 10px;
 }
 
 .burger-menu {
   display: none;
-  position: absolute;
-  z-index: 100;
-  right: 0;
-  margin: 10px;
   width: 30px;
-  height: 30px;
-  text-align: center;
+  height: 4px;
+  background-color: white;
+  position: absolute;
+  right: 0;
+  margin: 30px;
+  position: absolute;
+}
+
+.burger-menu:before,
+.burger-menu:after {
+  content: '';
+  position: absolute;
+  height: 4px;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  transition: 0.5s;
+}
+
+.burger-menu:before {
+  top: -10px;
+  width: 80%;
+}
+
+.burger-menu:after {
+  top: 10px;
+  width: 80%;
 }
 
 #checkbox {
+  display: none;
   position: absolute;
-  z-index: 100;
-  opacity: 0;
-  right: 0;
-  margin: 10px;
+  right: 12px;
+  margin: 15px;
   width: 30px;
   height: 30px;
+  opacity: 0;
+  z-index: 100;
 }
 
 @media screen and (max-width: 600px) {
   nav {
     flex-direction: column;
     align-items: center;
+
+    padding: 10px;
   }
+
   .a-container {
-    flex-direction: column;
-    height: 50vw;
+    position: relative;
+    left: -100%;
+
+    opacity: 0;
     align-items: center;
     justify-content: space-around;
     width: 100%;
@@ -63,10 +91,29 @@ nav div img {
 
   .burger-menu {
     display: block;
-    z-index: 0;
+    transition: height 0.1s ease-in;
+  }
+
+  #checkbox {
+    display: block;
   }
 
   #checkbox:checked ~ .a-container {
-    display: none;
+    left: 0;
+    height: 50vh;
+    transition: all 0.5s ease-in;
+    opacity: 1;
+    flex-direction: column;
+  }
+
+  #checkbox:checked ~ .burger-menu:after {
+    transform: rotate(45deg) translateY(-14px);
+  }
+
+  #checkbox:checked ~ .burger-menu:before {
+    transform: rotate(-45deg) translateY(14px);
+  }
+  #checkbox:checked ~ .burger-menu {
+    height: 0;
   }
 }
